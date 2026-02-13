@@ -369,7 +369,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 For questions or support, please open an issue or contact:
 - Email: support@smartagri.com
-- GitHub: [Your GitHub Profile]
+- GitHub: (https://github.com/ARSHIBOT)
 
 ## 🌟 Star History
 

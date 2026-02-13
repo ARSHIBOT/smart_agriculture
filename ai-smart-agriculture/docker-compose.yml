@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../Dockerfile.backend
+    container_name: agriculture-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./agriculture.db
+      - DEBUG=True
+      - CORS_ORIGINS=http://localhost:5173
+    volumes:
+      - ./backend:/app
+      - backend-data:/app/uploads
+    restart: unless-stopped
+    networks:
+      - agriculture-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../Dockerfile.frontend
+    container_name: agriculture-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - agriculture-network
+
+volumes:
+  backend-data:
+
+networks:
+  agriculture-network:
+    driver: bridge
